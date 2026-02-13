@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💌</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: #ffe6ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Envelope Container */
+.envelope-container {
+  position: relative;
+  width: 360px;
+  height: 230px;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .envelope-container {
+    width: 300px;
+    height: 200px;
+  }
+}
+
+/* Envelope Body */
+.envelope {
+  position: relative;
+  width: 100%;
+  height: auto;            /* ✅ allow height to grow */
+  min-height: 230px;       /* ✅ keep envelope shape */
+  background: #f5c99f;
+  border-radius: 12px;
+  overflow: visible;       /* ✅ allow paper to expand */
+  padding-bottom: 24px;    /* ✅ space for long text */
+}
+
+
+/* Envelope Flap */
+.flap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #f0b57f;
+  clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 0, 0 0);
+  transform-origin: top;
+  transition: transform 1s ease;
+  z-index: 3;
+}
+
+.open .flap {
+  transform: rotateX(180deg);
+}
+
+/* Open Button */
+.open-btn {
+  position: absolute;
+  bottom: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 22px;
+  background: #ff4d6d;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Content Inside */
+.content {
+  position: relative;        /* ❗ not absolute */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 1s ease 0.6s;
+}
+
+
+.open .content {
+  opacity: 1;
+}
+
+/* Cat & Chocolate */
+.gift-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.gift-row img {
+  max-width: 90px;
+  height: auto;
+}
+
+.chocolate {
+  max-width: 110px;
+}
+
+@media (max-width: 480px) {
+  .gift-row {
+    gap: 10px;
+  }
+
+  .gift-row img {
+    max-width: 75px;
+  }
+
+  .chocolate {
+    max-width: 95px;
+  }
+}
+
+.gift-row {
+  animation: popIn 0.6s ease forwards;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* Paper */
+.paper {
+  margin-top: 14px;
+  width: 220px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+  transition: transform 0.25s ease;
+  word-wrap: break-word;
+}
+
+.paper span {
+  display: none;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.paper.open span {
+  display: block;
+}
+
+.paper.open {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+
+.heart {
+  position: fixed;
+  bottom: -10px;
+  font-size: 18px;
+  animation: floatUp 4s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+.mute-btn {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+  z-index: 999;
+}
+
+.mute-btn:active {
+  transform: scale(0.95);
+}
+
+
+</style>
+</head>
+
+<body>
+
+  <audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="envelope-container">
+  <div class="envelope" id="envelope">
+    <div class="flap"></div>
+
+    <div class="content">
+      <div class="gift-row">
+        <img src="images/cat.png" alt="Cat">
+        <img src="images/silverqueen.png" class="chocolate" alt="Chocolate">
+      </div>
+
+      <div class="paper" id="paper">
+        Click me 
+        <span>
+          Aku pengennya ngasih via Shopp*, tapi bokek E-Wallet jadinya cuman bisa lewat sini (Ditunggu yaa :> Semoga cair (Rencananya juga pengen ngasih boneka mawmaw)) :X <br>
+
+          Thank you for being my friend, someone I can trust, be honest and be myself. Thank you and sorry for the past almost a decade.<br>
+
+          I will always support you. No matter what. No matter where :3 <br>
+
+          ( Masih ada hutang yang lain but still in work in progress because of how kinda hard it is than I thought lmao :P. Itu SilverQueen Jeruk kalau kurang keliatan.)
+
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <button class="open-btn" onclick="openEnvelope()">Open</button>
+</div>
+
+<button id="muteBtn" class="mute-btn">🔊</button>
+
+<script>
+const music = document.getElementById("bgMusic");
+const muteBtn = document.getElementById("muteBtn");
+
+let isMuted = true;
+music.volume = 0.5;
+
+/* Open envelope + play music */
+function openEnvelope() {
+  document.getElementById('envelope').classList.add('open');
+
+  if (isMuted) {
+    music.play().catch(() => {});
+    isMuted = false;
+    muteBtn.textContent = "🔊";
+  }
+}
+
+/* Toggle mute */
+muteBtn.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+    muteBtn.textContent = "🔊";
+    isMuted = false;
+  } else {
+    music.pause();
+    muteBtn.textContent = "🔇";
+    isMuted = true;
+  }
+});
+
+/* Paper click */
+document.getElementById('paper').addEventListener('click', function () {
+  this.classList.toggle('open');
+});
+
+/* Floating hearts */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "🐈";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 4000);
+}, 600);
+</script>
+
+
+
+</body>
+</html>
