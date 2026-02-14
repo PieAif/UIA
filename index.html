@@ -213,11 +213,52 @@ body {
   transform: scale(0.95);
 }
 
+.oiia {
+  position: fixed;
+  width: 80px;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.oiia.show {
+  opacity: 0.85;
+  visibility: visible;
+}
+
+.oiia-left {
+  left: 256px;
+  top: 50%;
+}
+
+.oiia-right {
+  right: 256px;
+  top: 50%;
+}
+
+.oiia-spin {
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
 
 </style>
 </head>
 
 <body>
+
+  <img src="images/oiia.gif" class="oiia oiia-left oiia-spin" alt="OIIA Cat">
+  <img src="images/oiia.gif" class="oiia oiia-right oiia-spin" alt="OIIA Cat">
 
   <audio id="bgMusic" loop>
   <source src="music.mp3" type="audio/mpeg">
@@ -236,13 +277,9 @@ body {
       <div class="paper" id="paper">
         Click me 
         <span>
-          Aku pengennya ngasih via Shopp*, tapi bokek E-Wallet jadinya cuman bisa lewat sini (Ditunggu yaa :> Semoga cair (Rencananya juga pengen ngasih boneka mawmaw)) :X <br>
-
-          Thank you for being my friend, someone I can trust, be honest and be myself. Thank you and sorry for the past almost a decade.<br>
-
-          I will always support you. No matter what. No matter where :3 <br>
-
-          ( Masih ada hutang yang lain but still in work in progress because of how kinda hard it is than I thought lmao :P. Itu SilverQueen Jeruk kalau kurang keliatan.)
+          Happy Valen Chocolatey's Days <br>
+          Here a digital chocolate! <br>
+          Wish you the best
 
         </span>
       </div>
@@ -264,6 +301,11 @@ music.volume = 0.5;
 /* Open envelope + play music */
 function openEnvelope() {
   document.getElementById('envelope').classList.add('open');
+
+  document.querySelectorAll(".oiia").forEach(cat => {
+  cat.classList.add("show");
+});
+
 
   if (isMuted) {
     music.play().catch(() => {});
@@ -294,7 +336,7 @@ document.getElementById('paper').addEventListener('click', function () {
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
-  heart.innerText = "🐈";
+  heart.innerText = "🍦";
   heart.style.left = Math.random() * 100 + "vw";
   document.body.appendChild(heart);
 
